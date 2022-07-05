@@ -9,7 +9,7 @@ WIP: Working in progress.
 ### Demo link: 
 [live demo link: ]("").
 
-This project is currently in development. 
+This project is currently in development.  
 ## Installation and Setup Instructions
 #### Get Started:  
 

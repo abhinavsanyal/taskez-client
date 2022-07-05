@@ -1,7 +1,10 @@
+
+import { Authentication, Dashboard } from "./pages";
+
 const App = () => {
   return (
     <div className="App">
-     Lets begin!!
+     <Authentication />
     </div>
   );
 }

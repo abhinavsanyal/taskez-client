@@ -1,8 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { AuthenticationSection, Row, Col, Stack } from '../features';
+import illustrationSrc from './assets/heroimg.svg';
 
 const AuthPage = () => {
   return (
-    <div>Login</div>
+    <Row fullScreen>
+      <Col size={1}>
+      <img src={illustrationSrc} alt="illustration" />
+      </Col>
+      <Col size={1}>
+        <AuthenticationSection />
+      </Col>
+    </Row>
   )
 }
 
