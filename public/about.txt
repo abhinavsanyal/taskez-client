@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Poller One
+- Font Author: Copyright (c) 2011, Sorkin Type Co (www.sorkintype.com) with Reserved Font Names "Poller" and "Poller One".
+- Font Source: http://fonts.gstatic.com/s/pollerone/v19/ahccv82n0TN3gia5E4Bud-lbgUS5u0s.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
