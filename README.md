@@ -1,7 +1,7 @@
 ## Taskez is simple task  management platform
 <img src="public/readme_screen.png" alt="kanbanboard" title="kanbanboard">
 
-###fetaures:-
+### Fetaures
     1) Kanban board to create and manage tasks.
 
 ## Project Status
