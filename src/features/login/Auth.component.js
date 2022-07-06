@@ -20,7 +20,7 @@ export const LoginForm = ({ onSubmitHandler }) => {
       <Row>
         <Heading >
           To Continue
-          <SubHeading>{"We need your Name /& email"}</SubHeading>
+          <SubHeading>{"We need your Name & Email"}</SubHeading>
         </Heading>
       </Row>
 
@@ -67,11 +67,9 @@ export const SignupForm = ({ onSubmitHandler }) => {
   );
 };
 
-const _tabs = ["Login", "Sign up"];
-
 const _contents = [
   {
-    id: "Login",
+    id: "Log In",
     component: <LoginForm />,
   },
   {
@@ -82,8 +80,8 @@ const _contents = [
 
 export const AuthenticationSection = ({ onLogin, onSignup }) => {
   return (
-    <Card margin={"0.5rem 6rem"} height={"big"}>
-      <Tabs tabs={_tabs} contents={_contents} height={"30rem"} />
+    <Card margin={"0.5rem 6rem"} height={"big"} borderRadius={"65px"} border={"2px solid rgba(26, 59, 88, 0.24)"}>
+      <Tabs contents={_contents} height={"30rem"} />
     </Card>
   );
 };

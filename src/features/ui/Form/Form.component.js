@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Row } from "../Stack";
 import { StyledForm, StyledInput, CheckboxLabel } from "./Form.styles";
-import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai";
+import {AiOutlineEye, AiOutlineEyeInvisible, AiOutlineSearch,} from "react-icons/ai";
+import {FiSearch} from "react-icons/fi";
 
 // Form component using the StyledForm component
 export const Form = ({ children, ...props }) => {
@@ -49,17 +50,48 @@ export const FormField = ({
   );
 };
 
-//Create a checkbox component
-export const Checkbox = ({ name, value, onChange, required }) => {
+//Checkbox component using the CheckboxLabel component
+export const Checkbox = ({ color,name, value, onChange, required= false}) => {
   return (
-    <CheckboxLabel>
+    <CheckboxLabel color={color}>
       <input
         type="checkbox"
-        name="remember"
+        name={name}
         onChange={onChange}
         value={value}
+        required={required}
       />
       {name}
     </CheckboxLabel>
   );
 };
+
+export const SearchInput = ({
+  name,
+  color="#9A9A9A",
+  placeholder,
+  placeholder_weight="normal",
+  placeholder_size="1.5rem",
+  placeholder_line_height="1.5rem",
+  value,  onChange, required= false,
+align }) => { 
+  return (
+    <Row relative align={align}>
+      <StyledInput
+        name={name}
+        type={"text"}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+        outline={"none"}
+        color={color}
+        weight={placeholder_weight}
+        size={placeholder_size}
+        lineHeight={placeholder_line_height}
+      >
+      </StyledInput>
+      <FiSearch style={{position:"absolute", left: "8%", top:"42%"}} size={placeholder_size} color={color}></FiSearch>
+    </Row>
+  );
+}

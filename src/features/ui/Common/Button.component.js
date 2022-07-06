@@ -1,5 +1,6 @@
 import React from "react";
 import { StyledButton } from "./Common.styles";
+import { AiOutlinePlus } from "react-icons/ai";
 
 
 export const Button = ({
@@ -13,6 +14,19 @@ export const Button = ({
       {" "}
       {icon}
       {name}{" "}
+    </StyledButton>
+  );
+};
+
+export const ButtonWithIcon = ({
+  color = "white",
+  background = "#329C89",
+}) => {
+  console.log("getting called", color);
+  return (
+    <StyledButton color={color} background={background}>
+     <AiOutlinePlus color={color} size={
+      25}/>
     </StyledButton>
   );
 };

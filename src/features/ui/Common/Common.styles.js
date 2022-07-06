@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { AiOutlinePlus } from "react-icons/ai";
 // General Purpose Styled Button.
 export const StyledButton = styled.div`
     background-color: ${({ background }) =>
@@ -16,17 +16,26 @@ export const StyledButton = styled.div`
     width: -webkit-fill-available;
     letter-spacing: 0.01em;
     margin: 1rem 3.5rem 1rem 3.5rem;
+    max-width: 30vw;
 `;
+
 
 // General purpose Styled Card .
 export const StyledCard = styled.div`
-  background: ${({ background }) => (background ? background : "white")};
-  border: 2px solid rgba(26, 59, 88, 0.24);
-  border-radius: 65px;
+  background: ${({ background }) => (background ? background : "")};
+  border:${({ border }) => (border ? border : "2px solid rgba(26, 59, 88, 0.24)")} ;
+  border-radius:${({ borderRadius }) => (borderRadius ? borderRadius : "5px")};
   width: 80%;
   max-width: 570px ;
+  color: ${({ color }) => (color ? color : "black")};
   padding: ${({ padding }) => (padding ? padding : "4rem 4rem")};
   margin: ${({ margin }) => (margin ? margin : "0.8rem 5rem")};
+  box-shadow: ${({ boxShadow }) => (boxShadow ? boxShadow : "none")};
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  width: -webkit-fill-available;
+  letter-spacing: 0.01em;
 `;
 
 // Seperator that is used to seperate sections
