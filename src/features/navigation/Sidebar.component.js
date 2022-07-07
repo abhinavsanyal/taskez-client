@@ -1,4 +1,3 @@
-// create a react function component called Sidebar that contains Nav Links to the different routes.
 import React from "react";
 import { GrHomeRounded } from "react-icons/gr";
 import { BsCalendarDate } from "react-icons/bs";

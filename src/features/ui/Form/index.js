@@ -1,1 +1,1 @@
-export { Form , FormField, Checkbox, SearchInput} from './Form.component';
+export { Form , FormField, Checkbox, SearchInput, TextInputTitle, TextArea} from './Form.component';

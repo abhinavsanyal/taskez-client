@@ -13,7 +13,7 @@ const Dashboard = () => {
           <Row  size={1}>
              <Header />
           </Row>
-          <Row background={"orange"} size={4}>
+          <Row size={4}>
           <Outlet />
           </Row>
         </Row>

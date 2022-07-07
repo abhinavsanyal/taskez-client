@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Row } from "../Stack";
-import { StyledForm, StyledInput, CheckboxLabel } from "./Form.styles";
+import { Row } from "../FlexLayout";
+import { StyledForm, StyledInput, CheckboxLabel, StyledBasicInputTitle, StyledBasicTextArea } from "./Form.styles";
 import {AiOutlineEye, AiOutlineEyeInvisible, AiOutlineSearch,} from "react-icons/ai";
 import {FiSearch} from "react-icons/fi";
 
@@ -16,7 +16,8 @@ export const FormField = ({
   value,
   onChange,
   required,
-  eyeIcon = false
+  eyeIcon = false,
+  outline="none"
 }) => {
   const [passwordShown, setPasswordShown] = useState(false);
 
@@ -65,6 +66,56 @@ export const Checkbox = ({ color,name, value, onChange, required= false}) => {
     </CheckboxLabel>
   );
 };
+
+//Basic TextInput component using the StyledInput component
+export const TextInputTitle = ({
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  required,
+  rows = 1,
+}
+) => {
+  return (
+    <StyledBasicInputTitle
+
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      required={required}
+      rows  = {10}
+    />
+  );
+}
+
+
+export const TextArea = ({
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  required,
+  rows = 1,
+}
+) => {
+  return (
+    <StyledBasicTextArea
+
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      required={required}
+      rows  = {10}
+    />
+  );
+}
 
 export const SearchInput = ({
   name,

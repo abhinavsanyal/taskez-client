@@ -1,0 +1,1 @@
+export { Avatar, User, AvatarList } from "./Avatar.component";

@@ -8,21 +8,20 @@ export const HeadingText = ({children}) => {
     fontSize="24px"
     lineHeight="101.1%"
     color="#212121" >
-       {children[0]}
+       {children}
       </StyledText>
     );
   };
   export const SubHeadingText = ({children}) => {
-  console.log("found child", children)
-  return <StyledText > {children[0]}</StyledText>;
-};
-export const TitleText = ({children}) => {
-  return (
-    <StyledText
+    return <StyledText > {children}</StyledText>;
+  };
+  export const TitleText = ({children}) => {
+    return (
+      <StyledText
       fontWeight="500"
       fontSize="14px"
       lineHeight="101.1%"
-      color="#212121" > {children[0]} </StyledText>
+      color="#212121" > {children} </StyledText>
   );
 };
 export const DescriptionText = ({children}) => {
@@ -30,22 +29,26 @@ export const DescriptionText = ({children}) => {
   fontSize="12px"
   lineHeight="137.1%"
   color="#6B6B6B"
-  >  {children[0]}</StyledText>;
+  >  {children}</StyledText>;
 };
 
 // Returns a HOC that wraps the child ( string || any ) in a StyledText component of the given type
 // types include: Heading, SubHeading, Title & Description
 export const Text = ({ children, type="description" }) => {
+  console.log("found child", children)
+  if( typeof children !== "string"){
+    return <div>children</div>
+  }
   switch (type) {
     case "heading":
-      return <HeadingText > { children && children.length &&  children[1]}</HeadingText>;
+      return <HeadingText > { children }</HeadingText>;
     case "subheading":
-      return <SubHeadingText >{ children && children.length &&  children[1]} </SubHeadingText>;
+      return <SubHeadingText >{ children } </SubHeadingText>;
     case "title":
-      return <TitleText >{ children && children.length &&  children[1]} </TitleText>;
+      return <TitleText >{ children } </TitleText>;
     case "description":
-      return <DescriptionText >{ children && children.length &&  children[1]} </DescriptionText>;
+      return <DescriptionText >{ children } </DescriptionText>;
     default:
-      return <HeadingText > { children && children.length &&  children[1]}</HeadingText>;
+      return <HeadingText > { children }</HeadingText>;
   }
 };

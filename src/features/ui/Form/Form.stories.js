@@ -1,6 +1,6 @@
 import { Form, FormField, Checkbox, SearchInput } from "./Form.component";
 import { Button } from "../Common";
-import { Row } from "../Stack";
+import { Row } from "../FlexLayout";
 
 export default {
   title: "Form",

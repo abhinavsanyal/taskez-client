@@ -33,7 +33,7 @@ export const LoginForm = ({ onSubmitHandler }) => {
           required
           eyeIcon={true}
         />
-        <Button type="submit" name="Login" />
+        <Button type="submit" name="Login" margin="1rem 3.5rem 1rem 3.5rem" />
         <Row>
 
         <Checkbox name="Remember Me" value="true" />
@@ -56,7 +56,7 @@ export const SignupForm = ({ onSubmitHandler }) => {
           required
           eyeIcon={true}
         />
-        <Button type="submit" name={"Sign up"} />
+        <Button type="submit" name={"Sign up"}   margin="1rem 3.5rem 1rem 3.5rem" />
         <Row >
 
         <Checkbox name={"Remember Me"} value="true" />

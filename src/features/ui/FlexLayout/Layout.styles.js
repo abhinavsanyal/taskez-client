@@ -14,6 +14,7 @@ export const Stack = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.direction ? props.direction : "row")};
+  flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
   flex: ${(props) => (props.size ? props.size : "1")};
   align-items: ${(props) => (props.align ? props.align : "")};
   justify-content: ${(props) => (props.justify ? props.justify : "")};
@@ -27,6 +28,7 @@ export const Row = styled.div`
 export const Col = styled.div`
 margin:8px;
   flex: ${(props) => (props.size ? props.size : "1")};
+  width: ${({width}) => (width ? width : "")};
   background-color: ${(props) =>
     props.background ? props.background : ""};
     display: inherit;

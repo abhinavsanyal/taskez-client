@@ -5,7 +5,7 @@ export const StyledButton = styled.div`
     background-color: ${({ background }) =>
       background ? background : "#329C89"};
     color: ${({ color }) => (color ? color : "white")};
-    border-radius: 0.5rem;
+    border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : "7px")};
     padding: 0.8rem 0;
     display:flex
     justify-content: center;
@@ -15,8 +15,17 @@ export const StyledButton = styled.div`
     text-align: center;
     width: -webkit-fill-available;
     letter-spacing: 0.01em;
-    margin: 1rem 3.5rem 1rem 3.5rem;
+    margin: ${({ margin }) => margin ? margin : "0"};   
+    padding: ${({ padding }) => padding ? padding : "0.8rem 0"};
     max-width: 30vw;
+    cursor: pointer;
+    &:hover {
+      filter: saturate(2.5);
+    }
+    & svg {
+      vertical-align: middle;
+      padding: 0.4em;
+    }
 `;
 
 
@@ -47,7 +56,6 @@ export const Seperator = styled.div`
   width: 70%;
 `;
 
-// create a heading styled component
 export const Heading = styled.h1`
   font-family: "Poppins";
   font-style: normal;
@@ -60,7 +68,6 @@ export const Heading = styled.h1`
   margin-bottom: 0;
 `;
 
-//create a subheading styled component
 export const SubHeading = styled.h2`
   font-family: "Poppins";
   font-style: normal;

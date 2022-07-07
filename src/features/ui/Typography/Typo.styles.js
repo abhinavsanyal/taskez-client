@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// create a styled text component
 export const StyledText = styled.p`
     font-family: ${props => props.fontFamily ? props.fontFamily: "Poppins"};
     font-size: ${props => props.fontSize ? props.fontSize: "17px"};

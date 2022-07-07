@@ -12,6 +12,33 @@ export const StyledForm = styled.form`
   height: ${({ height }) => (height ? height : "100%")};
 `;
 
+export const StyledBasicInputTitle = styled.input`
+border: none;
+outline: none;
+width: 100%;
+font-family: ${({ fontFamily}) => fontFamily ? fontFamily : "Poppins"};
+font-style: ${({ fontStyle }) => fontStyle ? fontStyle : "normal"};
+font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : "500"};
+font-size: ${({ fontSize }) => fontSize ? fontSize : "14px"};
+line-height: 137.1%;
+color: ${({ color }) => color ? color : "#212121"};
+`;
+
+export const StyledBasicTextArea = styled.textarea`
+border: none;
+outline: none;
+width: 100%;
+font-family: ${({ fontFamily}) => fontFamily ? fontFamily : "Poppins"};
+font-style: ${({ fontStyle }) => fontStyle ? fontStyle : "normal"};
+font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : "400"};
+font-size: ${({ fontSize }) => fontSize ? fontSize : "12px"};
+line-height: 137.1%;
+/* or 16px */
+resize: none;
+height: 4rem;
+color: ${({ color }) => color ? color : "#6B6B6B"};
+`;
+
 export const StyledInput = styled.input`
   background: #ffffff;
   border: ${({ outline }) =>

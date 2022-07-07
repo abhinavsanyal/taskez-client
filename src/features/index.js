@@ -4,6 +4,7 @@ export {
   Col,
   Stack,
   Button,
+  ButtonWithIcon,
   Form,
   FormField,
   Checkbox,
@@ -12,9 +13,12 @@ export {
   SubHeading,
   UnderConstruction,
   SearchInput,
+  TextInputTitle,
+  TextArea,
   Text,
-  Tabs
+  Tabs,
 } from "./ui";
 export { Kanban } from "./kanban";
 export { Sidebar } from "./navigation";
-export { Avatar, User, AvatarList, Header } from "./header";
+export { Avatar, User, AvatarList } from "./avatar";
+export {Header } from "./header";
