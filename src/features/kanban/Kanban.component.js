@@ -1,30 +1,17 @@
 import React from "react";
-import { Card } from "../ui";
+import { Row ,SectionHeader } from "../ui";
 import { KanbanProvider } from "./contexts/kanban.context";
-import { DragDropContext } from 'react-beautiful-dnd';
 import  Board  from "./Board.component";
+import { kanban_header_actions } from "./constants/headerActions";
 
 export const Kanban =  () => {
 
-  const onDragEnd = (result) => {
-    // Todo: Implement sorting of cards in a lane
-    
-  }
-
   return (
     <KanbanProvider>
-      <DragDropContext onDragEnd={() => {}}  >
-      {/* {(provided) => (
-        <Container ref={provided.innerRef} {...provided.droppableProps}>
-        {ordered.map((key, index) => (
-          <Column key={key} index={index} title={key} quotes={columns[key]} isScrollable={withScrollableColumns} isCombineEnabled={isCombineEnabled} useClone={useClone} />
-          ))}
-          {provided.placeholder}
-          </Container>
-        )} */}
+       <Row direction={"column"}>
+              <SectionHeader heading="Projects" actions={kanban_header_actions}/>
         <Board />
-        </DragDropContext>
-
+            </Row>
     </KanbanProvider>
   );
 };

@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+
+export const StyledEditCard = styled.div`
+background: #fff;
+position: absolute;
+right : -30px;
+width: 50%;
+height: 100%;
+box-shadow: -4px 6px 17px rgba(216, 216, 216, 0.59);
+z-index: 10;
+`;
+
 export const Swatch = styled.div`
   background: ${(props) => (props.background ? props.background : "#F5F9F9")};
   border-radius: ${(props) =>

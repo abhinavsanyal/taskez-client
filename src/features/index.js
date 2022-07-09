@@ -6,6 +6,9 @@ export {
   Button,
   ButtonWithIcon,
   Form,
+  useForm,
+  validateLogin,
+  validateSignup,
   FormField,
   Checkbox,
   Seperator,
@@ -17,8 +20,8 @@ export {
   TextArea,
   Text,
   Tabs,
+  SectionHeader, Avatar, User, AvatarList, ErrorText, displayError
 } from "./ui";
 export { Kanban } from "./kanban";
 export { Sidebar } from "./navigation";
-export { Avatar, User, AvatarList } from "./avatar";
 export {Header } from "./header";

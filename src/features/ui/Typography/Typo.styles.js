@@ -9,4 +9,4 @@ export const StyledText = styled.p`
     letter-spacing: 0.05em;
     color: ${props => props.color ? props.color: "#3A3A3A"};
     margin: ${props => props.margin ? props.margin: "0"};
-    `
+    `;

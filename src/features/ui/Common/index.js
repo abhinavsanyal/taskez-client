@@ -1,4 +1,4 @@
 export { Button , ButtonWithIcon} from './Button.component';
 export { Card } from './Card.component';
 export { UnderConstruction } from './UnderConstruction.component';
-export { Seperator, Heading, SubHeading } from './Common.styles';
+export { Seperator, Heading, SubHeading} from './Common.styles';

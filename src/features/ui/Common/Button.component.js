@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledButton } from "./Common.styles";
+import { StyledButton, StyledSubmitButton, Spinner } from "./Common.styles";
 import { AiOutlinePlus } from "react-icons/ai";
 
 export const Button = ({
@@ -10,30 +10,56 @@ export const Button = ({
   margin = "0",
   padding = "0.8rem 0",
   borderRadius = "7px",
+  type,
+  loading = false
 }) => {
-  return (
-    <StyledButton
-      color={color}
-      background={background}
-      margin={margin}
-      padding={padding}
-      borderRadius={borderRadius}
-    >
-      {" "}
-      {icon}
-      {name}{" "}
-    </StyledButton>
-  );
+
+  const renderButton = () => {
+    if(type === "submit"){
+      return (<StyledSubmitButton
+        color={color}
+        background={background}
+        margin={margin}
+        padding={padding}
+        borderRadius={borderRadius}
+        type="submit"
+      >
+        {" "}
+        <span style={{marginRight:"15px"}}>  {icon}
+        {name}{" "}</span>
+      
+        {loading &&  <Spinner />}
+      </StyledSubmitButton>)
+    } else {
+      return (
+        <StyledButton
+          color={color}
+          background={background}
+          margin={margin}
+          padding={padding}
+          borderRadius={borderRadius}
+        >
+          {" "}
+          {icon}
+          {name}{" "}
+   
+        </StyledButton>
+      );
+    }
+  }
+
+  return renderButton();
 };
 
 export const ButtonWithIcon = ({
+  id="",
   color = "white",
   background = "#329C89",
   margin = "0",
   padding = "0",
   borderRadius = "7px",
+  onClickhandler = () => {},
 }) => {
-  console.log("getting called", color);
   return (
     <StyledButton
       color={color}
@@ -41,6 +67,7 @@ export const ButtonWithIcon = ({
       margin={margin}
       padding={padding}
       borderRadius={borderRadius}
+      onClick={()=> onClickhandler(id)}
     >
       <AiOutlinePlus color={color} size={25} />
     </StyledButton>

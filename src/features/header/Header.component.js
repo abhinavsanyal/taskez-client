@@ -1,6 +1,5 @@
 import React from "react";
-import { SearchInput, Row, Col, Form , Text} from "../ui";
-import { Avatar, AvatarList, User } from "../avatar";
+import { SearchInput, Row, Col, Form , AvatarList, User} from "../ui";
 import avatar1 from "../assets/avatar1.svg";
 import avatar2 from "../assets/avatar2.svg";
 import avatar3 from "../assets/avatar3.svg";
@@ -61,51 +60,8 @@ const _users = [
     id: 10,
     name: "Peter parker",
     avatar: avatar3,
-  }
+  },
 ];
-
-// export const Avatar = ({ size, src }) => {
-//   return <StyledAvatar src={src} width={size} height={size} />;
-// };
-
-// export const User = ({ name = "Abhinav", avatarUrl = avatar3 }) => {
-//   // render the user name and the Avatar
-//   return (
-//     <Row>
-//       <Col size={3} justify={"flex-end"}>
-//         <Text type="subheading">{`Hi ${name}`}</Text>
-//       </Col>
-//       <Col size={1} justify={"flex-start"}>
-//         <Avatar src={avatarUrl} size={45} />
-//       </Col>
-//     </Row>
-//   );
-// };
-
-// export const AvatarList = ({ users = _users, align, justify }) => {
-//     const filterUsers = (users) => (user,index) => {
-//         return index> 4 ? false : true;
-//     }
-//   return (
-//     <Row align={align} justify={justify}>
-//       <StyledAvatars>
-//         {users.filter(filterUsers(users)).map((user, index) => {
-//             if(index > 3 ){
-//                 return  <StytledAvatarItem key={user.id} lineHeight={ "1.8rem"}>
-//                     {users.length - index }
-//               </StytledAvatarItem> ;
-//             }
-//             return (
-//                 <StytledAvatarItem key={user.id}>
-//                   <Avatar key={user.id} src={user.avatar} size={26} />
-//                 </StytledAvatarItem>
-//               )
-            
-//         })}
-//       </StyledAvatars>
-//     </Row>
-//   );
-// };
 
 export const Header = () => {
   // handleSearchChange fuction is used to handle the search input change
@@ -113,7 +69,7 @@ export const Header = () => {
     console.log(e.target.value);
   };
   return (
-    <Row >
+    <Row>
       <Col size={3} align={"center"}>
         <Form>
           <Row relative align={"center"}>
@@ -123,6 +79,7 @@ export const Header = () => {
               placeholder_weight="400"
               placeholder_size="17px"
               placeholder_line_height="101.1%"
+        
             />
           </Row>
         </Form>
@@ -133,7 +90,7 @@ export const Header = () => {
       </Col>
 
       <Col size={2}>
-        <User avatarUrl={avatar4}/>
+        <User avatarUrl={avatar4} />
       </Col>
     </Row>
   );

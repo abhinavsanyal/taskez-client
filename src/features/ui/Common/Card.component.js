@@ -10,7 +10,8 @@ export const Card = ({
   margin,
   shadow,
   borderRadius,
-  border
+  border,
+  isDragging,
 }) => {
   return (
     <StyledCard
@@ -20,6 +21,7 @@ export const Card = ({
       boxShadow={shadow}
       borderRadius={borderRadius}
       border={border}
+      isDragging={isDragging}
     >
       {children}
     </StyledCard>

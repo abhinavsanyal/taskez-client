@@ -22,10 +22,13 @@ font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : "500"};
 font-size: ${({ fontSize }) => fontSize ? fontSize : "14px"};
 line-height: 137.1%;
 color: ${({ color }) => color ? color : "#212121"};
+caret-color: #329C89;
+caret-shape: block !important;
 `;
 
 export const StyledBasicTextArea = styled.textarea`
-border: none;
+border: ${({ border }) => border ? border : "1px solid #EEEEEE"};
+border-radius: ${({ borderRadius }) => borderRadius ? borderRadius : "6px"};
 outline: none;
 width: 100%;
 font-family: ${({ fontFamily}) => fontFamily ? fontFamily : "Poppins"};
@@ -33,10 +36,11 @@ font-style: ${({ fontStyle }) => fontStyle ? fontStyle : "normal"};
 font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : "400"};
 font-size: ${({ fontSize }) => fontSize ? fontSize : "12px"};
 line-height: 137.1%;
-/* or 16px */
 resize: none;
-height: 4rem;
+height: ${({ height }) => height ? height : "4rem"};
 color: ${({ color }) => color ? color : "#6B6B6B"};
+caret-color: #329C89;
+caret-shape: block !important;
 `;
 
 export const StyledInput = styled.input`
@@ -46,10 +50,12 @@ export const StyledInput = styled.input`
   color: ${({ color }) => (color ? color : "#9A9A9A")};
   border-radius: 8px;
   padding: 0 0.6rem;
-  margin: 1.2rem 3.5rem;
+  margin: ${({ margin }) => (margin ? margin : "1.2rem 1.2rem")};
   width: -webkit-fill-available;
   height: 45px;
   outline: ${({ outline }) => (outline ? outline : "none")};
+  font-weight: ${({ weight }) => (weight ? weight : "300")};
+  font-size: ${({ size }) => (size ? size : "14px")};
   &::placeholder {
     color: ${({ color }) => (color ? color : "#9A9A9A")};
     font-family: Poppins !important;

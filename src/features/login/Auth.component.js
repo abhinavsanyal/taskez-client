@@ -1,73 +1,13 @@
 import React from "react";
 import {
-  Stack,
-  Form,
-  FormField,
-  Button,
   Card,
   Tabs,
-  Seperator,
-  Heading,
-  SubHeading,
-  Row,
-  Checkbox
 } from "../ui";
 
-export const LoginForm = ({ onSubmitHandler }) => {
-  return (
-    <Stack>
-      <Seperator></Seperator>
-      <Row>
-        <Heading >
-          To Continue
-          <SubHeading>{"We need your Name & Email"}</SubHeading>
-        </Heading>
-      </Row>
+import { LoginForm } from "./LoginForm.component";
+import { SignupForm } from "./SignupForm.component";
 
-      <Form onSubmit={onSubmitHandler} >
-        <FormField name="email" type="email" placeholder="Email" required />
-        <FormField
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          eyeIcon={true}
-        />
-        <Button type="submit" name="Login" margin="1rem 3.5rem 1rem 3.5rem" />
-        <Row>
-
-        <Checkbox name="Remember Me" value="true" />
-        </Row>
-      </Form>
-    </Stack>
-  );
-};
-export const SignupForm = ({ onSubmitHandler }) => {
-  return (
-    <Stack>
-      <Seperator></Seperator>
-      <Form onSubmit={onSubmitHandler} >
-        <FormField name="name" type="text" placeholder="Name" required />
-        <FormField name="email" type="email" placeholder="Email" required />
-        <FormField
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          eyeIcon={true}
-        />
-        <Button type="submit" name={"Sign up"}   margin="1rem 3.5rem 1rem 3.5rem" />
-        <Row >
-
-        <Checkbox name={"Remember Me"} value="true" />
-        </Row>
-
-      </Form>
-    </Stack>
-  );
-};
-
-const _contents = [
+const tab_contents = [
   {
     id: "Log In",
     component: <LoginForm />,
@@ -78,10 +18,15 @@ const _contents = [
   },
 ];
 
-export const AuthenticationSection = ({ onLogin, onSignup }) => {
+export const AuthenticationSection = () => {
   return (
-    <Card margin={"0.5rem 6rem"} height={"big"} borderRadius={"65px"} border={"2px solid rgba(26, 59, 88, 0.24)"}>
-      <Tabs contents={_contents} height={"30rem"} />
+    <Card
+      margin={"0.5rem 6rem"}
+      height={"big"}
+      borderRadius={"65px"}
+      border={"2px solid rgba(26, 59, 88, 0.24)"}
+    >
+      <Tabs contents={tab_contents} height={"30rem"} />
     </Card>
   );
 };

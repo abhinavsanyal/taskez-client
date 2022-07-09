@@ -1,20 +1,23 @@
-import { SearchInput, Row, Col, Form , Text} from "../ui";
+import React from "react";
+import {  Row, Col,  Text} from "..";
 import { StyledAvatar, StyledAvatars, StytledAvatarItem } from "./Avatar.styles";
 
 export const Avatar = ({ size, src }) => {
   return <StyledAvatar src={src} width={size} height={size} />;
 };
 
-export const User = ({ name = "Abhinav", avatarUrl = '' }) => {
-  // render the user name and the Avatar
+export const User = ({ name = "Abhinav", avatarUrl = '', reverse= false , textType = 'subheading', iconSize = 45 }) => {
+  // render the user name and the Avatar based on the reverse flag
   return (
     <Row>
-      <Col size={3} justify={"flex-end"}>
-        <Text type="subheading">{`Hi ${name}`}</Text>
+      <Col size={reverse ? 1:3} justify={reverse ? "flex-start":"flex-end"}>
+        { reverse ?  <Avatar src={avatarUrl} size={iconSize} /> :  <Text type={textType}>{`Hi ${name}`}</Text>}
+       
       </Col>
-      <Col size={1} justify={"flex-start"}>
-        <Avatar src={avatarUrl} size={45} />
+      <Col size={!reverse ? 1:3} justify={reverse ? "flex-start":"flex-end"}>
+      { !reverse ?  <Avatar src={avatarUrl} size={iconSize} /> :  <Text type={textType}>{`Hi ${name}`}</Text>}
       </Col>
+    
     </Row>
   );
 };

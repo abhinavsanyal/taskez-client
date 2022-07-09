@@ -9,8 +9,6 @@ export const StyledAvatar = styled.img`
 
 export const StyledAvatars = styled.div`
   display: flex;
-  margin: auto;
-  padding: 0px;
   flex-direction: row;
   cursor: pointer;
   &:hover {
@@ -21,9 +19,10 @@ export const StyledAvatars = styled.div`
 `;
 
 export const StytledAvatarItem = styled.div`
-  background-color: #596376;
+  background-color: #E2E2E2;
   border-radius: 50%;
-  color: #ffffff;
+  color: background: #9A9A9A;
+
   display: block;
   font-size: 12px;
   font-weight: 100;

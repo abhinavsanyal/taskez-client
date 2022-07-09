@@ -1,41 +1,11 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
-// General Purpose Styled Button.
-export const StyledSubmitButton = styled.button`
-    background-color: ${({ background }) =>
-      background ? background : "#329C89"};
-    color: ${({ color }) => (color ? color : "white")};
-    border-radius: ${({ borderRadius }) =>
-      borderRadius ? borderRadius : "7px"};
-    border: ${({ border }) => (border ? border : "none")};
-    padding: 0.8rem 0;
-    display:flex
-    justify-content: center;
-    font-size: 1rem;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    width: -webkit-fill-available;
-    letter-spacing: 0.01em;
-    margin: ${({ margin }) => (margin ? margin : "0")};   
-    padding: ${({ padding }) => (padding ? padding : "0.8rem 0")};
-    max-width: 30vw;
-    cursor: pointer;
-    &:hover {
-      filter: saturate(2.5);
-    }
-    & svg {
-      vertical-align: middle;
-      padding: 0.4em;
-    }
-`;
 // General Purpose Styled Button.
 export const StyledButton = styled.div`
     background-color: ${({ background }) =>
       background ? background : "#329C89"};
     color: ${({ color }) => (color ? color : "white")};
-    border-radius: ${({ borderRadius }) =>
-      borderRadius ? borderRadius : "7px"};
+    border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : "7px")};
     padding: 0.8rem 0;
     display:flex
     justify-content: center;
@@ -45,8 +15,8 @@ export const StyledButton = styled.div`
     text-align: center;
     width: -webkit-fill-available;
     letter-spacing: 0.01em;
-    margin: ${({ margin }) => (margin ? margin : "0")};   
-    padding: ${({ padding }) => (padding ? padding : "0.8rem 0")};
+    margin: ${({ margin }) => margin ? margin : "0"};   
+    padding: ${({ padding }) => padding ? padding : "0.8rem 0"};
     max-width: 30vw;
     cursor: pointer;
     &:hover {
@@ -58,21 +28,21 @@ export const StyledButton = styled.div`
     }
 `;
 
+
 // General purpose Styled Card .
 export const StyledCard = styled.div`
   background: ${({ background }) => (background ? background : "")};
-  border: ${({ border }) =>
-    border ? border : "2px solid rgba(26, 59, 88, 0.24)"};
-  border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : "5px")};
+  border:${({ border }) => (border ? border : "2px solid rgba(26, 59, 88, 0.24)")} ;
+  border-radius:${({ borderRadius }) => (borderRadius ? borderRadius : "5px")};
   width: 80%;
-  max-width: 570px;
+  max-width: 570px ;
   color: ${({ color }) => (color ? color : "black")};
   padding: ${({ padding }) => (padding ? padding : "4rem 4rem")};
   margin: ${({ margin }) => (margin ? margin : "0.8rem 5rem")};
   box-shadow: ${({ boxShadow }) => (boxShadow ? boxShadow : "none")};
   font-size: 1rem;
   font-weight: 700;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   width: -webkit-fill-available;
   letter-spacing: 0.01em;
   transition: all 0.3s ease-in-out;
@@ -106,20 +76,4 @@ export const SubHeading = styled.h2`
   font-size: 10px;
   line-height: 15px;
   color: #999999;
-`;
-
-const SpinAnimation = keyframes`
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
-`;
-export const Spinner = styled.div`
-display: inline-block;
-border: 3px solid #f3f3f3;
-border-radius: 50%;
-border-top: 3px solid #1A3B58;
-width: 16px;
-height: 16px;
-  animation-name: ${SpinAnimation};
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
 `;
