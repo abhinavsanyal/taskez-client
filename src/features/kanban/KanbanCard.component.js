@@ -17,22 +17,17 @@ import { Draggable } from "react-beautiful-dnd";
 //  Board card component that renders a Card component with a form with a title and description
 export const KanbanCard = memo(
   ({
-    title,
-    description,
     isDraggable = true,
-    comments = [],
-    members = [],
     index,
-    id,
-    listId,
     updateCardTitle,
     updateCardDescription,
     removeCard,
     onClickHandler,
+    card
   }) => {
     return (
       <Draggable
-        draggableId={id}
+        draggableId={card._id}
         index={index}
         isDragDisabled={!isDraggable}
         disableInteractiveElementBlocking
@@ -49,7 +44,7 @@ export const KanbanCard = memo(
                 ref={provided.innerRef}
                 style={style}
                 onClick={(e) => {
-                  onClickHandler(id);
+                  onClickHandler(card);
                 }}
               >
                 <Card
@@ -65,9 +60,9 @@ export const KanbanCard = memo(
                           name={"title"}
                           type="text"
                           placeholder="Give your task a title."
-                          value={title}
+                          value={card.title}
                           onChange={(e) => {
-                            updateCardTitle(id, e.target.value);
+                            updateCardTitle(card._id, e.target.value);
                           }}
                         />
                       </Col>
@@ -79,9 +74,9 @@ export const KanbanCard = memo(
                           type="textarea"
                           rows={0}
                           placeholder="Describe your task."
-                          value={description}
+                          value={card.description}
                           onChange={(e) => {
-                            updateCardDescription( id, e.target.value);
+                            updateCardDescription( card._id, e.target.value);
                           }}
                           border="none"
                         />
@@ -90,14 +85,14 @@ export const KanbanCard = memo(
                     <Row>
                       <Col size={3} justify={"flex-start"}>
                         <AvatarList
-                          users={members}
+                          users={card.members}
                           align={"center"}
                           justify={"flex-start"}
                         />
                       </Col>
                       <Col size={1} justify={"flex-end"}>
                         <Text type="description" margin="5px">{`${
-                          comments.length > 0 ? comments.length : ""
+                          card.comments && card.comments.length > 0 ? card.comments.length : ""
                         }`}</Text>
                         <MdOutlineChatBubbleOutline size={14} />
                       </Col>

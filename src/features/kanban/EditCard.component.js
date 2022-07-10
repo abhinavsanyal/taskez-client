@@ -5,36 +5,25 @@ import { withKanbanContext } from "./contexts/kanban.context.js";
 import { useOutsideAlerter } from "./hooks";
 
 export const EditCard = withKanbanContext(
-  ({ cardId, getCardDetails, handleClose, updateCardDescription, updateCardTitle }) => {
-    const [card, setCard] = useState({});
-    const [author, setAuthor] = useState({});
+  ({ activeEditCard, handleClose, updateCardDescription, updateCardTitle }) => {
 
     const componentRef = useRef();
     useOutsideAlerter(componentRef, handleClose);
-
-    useEffect(() => {
-      let current = getCardDetails(cardId);
-      if (current) {
-        setCard(current);
-        setAuthor(current.members[0]);
-      }
-    }, [cardId]);
-
     return (
       <StyledEditCard ref={componentRef}>
-        <Stack direction="row">
+        <Stack direction="row" margin="10px">
           <FormField
             name="title"
             type="text"
             placeholder="Give your task a title."
-            value={card.title}
+            value={activeEditCard.title}
             required
             color={"#212121"}
             weight={"500"}
             size={"17px"}
             margin="0"
             onChange={(e) => {
-              updateCardTitle(cardId, e.target.value);
+              updateCardTitle(activeEditCard._id, e.target.value);
               }}
           />
         </Stack>
@@ -44,8 +33,8 @@ export const EditCard = withKanbanContext(
           </Col>
           <Col size={0.3} justify="flex-start">
             <User
-              name={author.name}
-              avatarUrl={author.avatar}
+              name={activeEditCard.members[0].name}
+              avatarUrl={activeEditCard.members[0].avatar}
               reverse
               iconSize={26}
               textType="description"
@@ -62,10 +51,10 @@ export const EditCard = withKanbanContext(
               type="textarea"
               rows={0}
               placeholder="Describe your task."
-              value={card.description}
+              value={activeEditCard.description}
               height={"5rem"}
               onChange={(e) => {
-                updateCardDescription(cardId, e.target.value);
+                updateCardDescription(activeEditCard._id, e.target.value);
               }}
             />
           </Col>

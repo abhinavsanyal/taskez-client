@@ -70,6 +70,7 @@ export const useForm = (callback, customValidator = null) => {
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
+      setValues({});
     }
   }, [errors]);
 

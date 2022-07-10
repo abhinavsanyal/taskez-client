@@ -10,11 +10,11 @@ import { SignupForm } from "./SignupForm.component";
 const tab_contents = [
   {
     id: "Log In",
-    component: <LoginForm />,
+    component: (props) => <LoginForm {...props} />,
   },
   {
     id: "Sign up",
-    component: <SignupForm />,
+    component: (props) => <SignupForm {...props}/>,
   },
 ];
 

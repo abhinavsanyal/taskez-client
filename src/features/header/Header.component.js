@@ -1,9 +1,11 @@
-import React from "react";
+import React,{ useContext, useEffect} from "react";
 import { SearchInput, Row, Col, Form , AvatarList, User} from "../ui";
 import avatar1 from "../assets/avatar1.svg";
 import avatar2 from "../assets/avatar2.svg";
 import avatar3 from "../assets/avatar3.svg";
 import avatar4 from "../assets/avatar4.svg";
+
+import { useAxios, AxiosContext } from "../../hooks";
 
 const _users = [
   {
@@ -64,6 +66,13 @@ const _users = [
 ];
 
 export const Header = () => {
+  const { currentUser } = useContext(AxiosContext);
+  const [users, getUsers ] = useAxios({ url :`/users`, method: "GET" });
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+
   // handleSearchChange fuction is used to handle the search input change
   const handleSearchChange = (e) => {
     console.log(e.target.value);
@@ -86,11 +95,11 @@ export const Header = () => {
       </Col>
 
       <Col size={2}>
-        <AvatarList users={_users} align={"center"} justify={"end"} />
+        <AvatarList users={users ? users : []  } align={"center"} justify={"end"} />
       </Col>
 
       <Col size={2}>
-        <User avatarUrl={avatar4} />
+        <User   name={currentUser? `Hi ${currentUser.name}` : ""} avatarUrl={currentUser ? currentUser.avatar : ""} />
       </Col>
     </Row>
   );

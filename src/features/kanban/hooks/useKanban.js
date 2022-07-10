@@ -1,194 +1,265 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useAxios } from "../../../hooks";
+
+const useKanbanApi = () => {
+  // API call to get all the kanban data
+  const [kanbanData, fetchBoard, isBoardLoaded, isBoardError] = useAxios({
+    url: "/lanes",
+    method: "GET",
+  });
+  // API for adding a new card
+  const [newCard, createCard] = useAxios({ url: "/cards", method: "POST" });
+  // API for updating board after moving a card
+  const [cardMoved, changeCardPosition] = useAxios({
+    url: "/cards/move",
+    method: "POST",
+  });
+  // API for updating a card title and / or description
+  const [cardUpdated, updateCard] = useAxios({
+    url: "/cards/update",
+    method: "POST",
+  });
+
+  // API for seeding the database with 3 lanes ToDo, InProgress and Completed
+  // ToDo : Move seed logic to backend, Once we have a addLane API integration.
+  const [seedData, seedDatabase] = useAxios({ url: "/lanes/seed", method: "GET" });
+
+  useEffect(() => {
+    // get kanban board after any change in the board
+    fetchBoard();
+  }, [seedData, newCard, cardMoved, cardUpdated]);
+
+  return {
+    kanbanData,
+    fetchBoard,
+    createCard,
+    changeCardPosition,
+    updateCard,
+    seedDatabase
+  };
+};
+
 // Custom hook that provides the state for the KanbanContext
-export const useKanban = (_data) => {
-  const [data, setData] = useState(_data);
+export const useKanban = ( ) => {
+  const { kanbanData, createCard, changeCardPosition, updateCard, seedDatabase } =
+    useKanbanApi();
+  const [data, setData] = useState(kanbanData);
+  const [isEditing, setIsEditing] = useState(false);
+  const [activeEditCard, setActiveEditCard] = useState(null);
+
+  const openCardEditor = (card) => {
+    setIsEditing(true);
+    setActiveEditCard(card);
+  }
+
+  const closeCardEditor = () => {
+    setIsEditing(false);
+    setActiveEditCard(null);
+  }
 
   // A function to get the details of a card by its id
   const getCardDetails = useCallback(
     (cardId) => {
-      // find the card with the given id in the data where data has lanes and a lane has cards.
-      const card = data.lanes.reduce((acc, lane) => {
+      //  find the card with the given id in the data where data has lanes and a lane has cards.
+      const card = data.reduce((acc, lane) => {
         if (acc) return acc;
-        return lane.cards.find((card) => card.id === cardId);
-      }
-      , null);
+        return lane.cards.find((card) => card._id === cardId);
+      }, null);
       return card;
-    },
-    [data]
-  );
-
-  // Function to update the order of the cards in the lanes
-  const updateCardOrder = useCallback(
-    (laneId, cardId, newIndex) => {
-      const lane = data.lanes.find((lane) => lane.id === laneId);
-      const card = lane.cards.find((card) => card.id === cardId);
-      const oldIndex = lane.cards.indexOf(card);
-      const newCards = [...lane.cards];
-      newCards.splice(oldIndex, 1);
-      newCards.splice(newIndex, 0, card);
-      setData({
-        ...data,
-        lanes: data.lanes.map((lane) => {
-          if (lane.id === laneId) {
-            return {
-              ...lane,
-              cards: newCards,
-            };
-          }
-          return lane;
-        }),
-      });
-    },
-    [data]
-  );
-
-  // Function to update the order of the the lanes
-  const updateLaneOrder = useCallback(
-    (laneId, newIndex) => {
-      const lane = data.lanes.find((lane) => lane.id === laneId);
-      const oldIndex = data.lanes.indexOf(lane);
-      const newLanes = [...data.lanes];
-      newLanes.splice(oldIndex, 1);
-      newLanes.splice(newIndex, 0, lane);
-      setData({
-        ...data,
-        lanes: newLanes,
-      });
     },
     [data]
   );
 
   //  Function that will remove a card from the lane by id
   const removeCard = useCallback(
-    (listId, cardId) => {
-      const lane = data.lanes.find((list) => list.id === listId);
-      lane.cards = lane.cards.filter((card) => card.id !== cardId);
-      setData({ ...data });
+    (laneId, cardId) => {
+      // TODO: remove the card from the lane
     },
-    [data, setData]
+    [data]
   );
 
   //  Function that will add a new card to the lane
   const addNewCard = useCallback(
-    (listId) => {
-      const lane = data.lanes.find((list) => list.id === listId);
-      const newCard = {
-        id: uuidv4(),
-        title: "",
-        isDraggable: false,
-        description: "",
-        label: "",
-        metadata: {},
-        members: [
-          {
-            id: uuidv4(),
-            name: "Something",
-            email: "email@g.com",
-          },
-        ],
-        comments: [],
-      };
-      lane.cards.unshift(newCard);
-      setData({ ...data });
+    async (laneId) => {
+      try {
+        const newCard = {
+          title: "",
+          description: "",
+        };
+        const card = await createCard({ laneId,  ...newCard });
+        if(card) {
+          openCardEditor(card);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
-    [data, setData]
+    [data, createCard]
   );
 
   //  Function for onDragEnd callback for react-beautiful-dnd
-  const updateBoard = ({ destination, source, draggableId }) => {
-    if (!destination) {
-      return;
-    }
+  const updateBoard = useCallback(
+    async ({ destination, source, draggableId }) => {
+      try {
+        if (!destination) {
+          return;
+        }
 
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
+        if (
+          destination.droppableId === source.droppableId &&
+          destination.index === source.index
+        ) {
+          return;
+        }
+        updateBoardLocally({destination, source, draggableId});
+        await changeCardPosition({
+          destinationId: destination.droppableId,
+          sourceId: source.droppableId,
+          destinationIdx: destination.index,
+          sourceIdx: source.index,
+          cardId: draggableId,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [data]
+  );
 
+  //  Function that will update the card title and description in local state . 
+  // This is done to avoid UI latency while updating the card asynchronously with the API
+  const updateBoardLocally = ({ destination, source, draggableId }) => {
     // If the card is moved to a different lane
     if (destination.droppableId !== source.droppableId) {
-      const sourceLane = data.lanes.find(
-        (lane) => lane.id === source.droppableId
+      const sourceLane = data.find(
+        (lane) => lane._id === source.droppableId
       );
-      const targetLane = data.lanes.find(
-        (lane) => lane.id === destination.droppableId
+      const targetLane = data.find(
+        (lane) => lane._id === destination.droppableId
       );
-      const card = sourceLane.cards.find((card) => card.id === draggableId);
+      const card = sourceLane.cards.find((card) => card._id === draggableId);
       sourceLane.cards = sourceLane.cards.filter(
-        (card) => card.id !== draggableId
+        (card) => card._id !== draggableId
       );
       targetLane.cards.splice(destination.index, 0, card);
-      setData({ ...data });
-      return;
+      setData([ ...data ]);
+    } else {
+      // If the card is moved to a different index in the same lane
+      const lane = data.find(
+        (lane) => lane._id === destination.droppableId
+      );
+      const newCards = [...lane.cards];
+      newCards.splice(source.index, 1);
+      newCards.splice(
+        destination.index,
+        0,
+        lane.cards.find((card) => card._id === draggableId)
+      );
+      setData(
+        data.map((lane) => {
+          if (lane._id === destination.droppableId) {
+            return {
+              ...lane,
+              cards: newCards,
+            };
+          }
+          return lane;
+        })
+      );
     }
-    // If the card is moved to a different index in the same lane
-    const lane = data.lanes.find((lane) => lane.id === destination.droppableId);
-    const newCards = [...lane.cards];
-    newCards.splice(source.index, 1);
-    newCards.splice(
-      destination.index,
-      0,
-      lane.cards.find((card) => card.id === draggableId)
-    );
-    setData({
-      ...data,
-      lanes: data.lanes.map((lane) => {
-        if (lane.id === destination.droppableId) {
-          return {
-            ...lane,
-            cards: newCards,
-          };
-        }
-        return lane;
-      }),
-    });
   };
 
   //  Function that will update a card's title
   const updateCardTitle = useCallback(
-    (cardId, title) => {
-      const card = getCardDetails(cardId);
-      card.title = title;
-      setData({ ...data });
+    async (cardId, title) => {
+      try {
+        // update activeEditCard title
+        setActiveEditCard((prevCard) => {
+          if (prevCard._id === cardId) {
+            return {
+              ...prevCard,
+              title,
+            };
+          }
+          return prevCard;
+        } );
+        await updateCard({
+          id: cardId,
+          title,
+          description: getCardDetails(cardId).description,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
-    [data, setData]
+    [data]
   );
 
   //  Function that will update a card's description
   const updateCardDescription = useCallback(
-    (cardId, description) => {
-      let card = getCardDetails(cardId);
-      card.description = description;
-      card.isDraggable = true;
-      setData({ ...data });
+    async (cardId, description) => {
+      try {
+        // update activeEditCard description
+        setActiveEditCard((prevCard) => {
+          if (prevCard._id === cardId) {
+            return {
+              ...prevCard,
+              description,
+            };
+          }
+          return prevCard;
+        }
+        );
+
+        await updateCard({
+          id: cardId,
+          title: getCardDetails(cardId).title,
+          description,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
-    [data, setData]
+    [data]
   );
 
   //  Function that will update a card's label
   const updateCardLabel = useCallback(
-    (listId, cardId, label) => {
-      const lane = data.lanes.find((list) => list.id === listId);
-      const card = lane.cards.find((card) => card.id === cardId);
-      card.label = label;
-      setData({ ...data });
+    (laneId, cardId, label) => {
+      // TODO: update the card label
     },
-    [data, setData]
+    [data]
   );
 
-  return {
-    data,
-    addNewCard,
-    removeCard,
-    updateBoard,
-    updateCardTitle,
-    updateCardDescription,
-    updateCardLabel,
-    updateCardOrder,
-    updateLaneOrder,
-    getCardDetails
-  };
+  useEffect(() => {
+    if(kanbanData)  {
+      if( kanbanData.length === 0) {
+        seedDatabase(); // add three lanes : todo, inprogress, completed
+      } else{
+        setData(kanbanData);
+      } 
+    }
+
+    // update the data in the state when kanbanData changes
+  } , [kanbanData]);
+
+  const hook_exports =  useMemo(() => {
+    return {
+      data,
+      isEditing,
+      activeEditCard,
+      openCardEditor,
+      closeCardEditor,
+      getCardDetails,
+      addNewCard,
+      removeCard,
+      updateBoard,
+      updateCardTitle,
+      updateCardDescription,
+      updateCardLabel,
+    }
+  }, [data, isEditing, activeEditCard]);
+
+  return hook_exports;
 };

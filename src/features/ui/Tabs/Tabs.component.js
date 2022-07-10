@@ -20,16 +20,18 @@ const TabItem = ({ tab, onClickHandler, activeTab }) => {
 };
 
 // TabContent component for displaying the content of a selected tab
-const TabBody = ({ tabId, content, activeTab }) => {
+const TabBody = ({ tabId, Content , activeTab, actionCallback }) => {
+
+  // Note:= here we are using Content as React functional component .
   return (
     <TabContent tabId={tabId} activeTab={activeTab}>
-      {content}
+     {Content({actionCallback})}
     </TabContent>
   );
 };
 
 // Tabs component to display the tabs and change the content based on the tab selected.
-export const Tabs = ({ contents = [], height = null }) => {
+export const Tabs = ({ contents = [], height = null , actionCallback }) => {
   const getHeaders = () => {
     return contents.map((content) => {
       return content.id;
@@ -61,8 +63,11 @@ export const Tabs = ({ contents = [], height = null }) => {
           <TabBody
             key={content.id}
             tabId={content.id}
-            content={content.component}
+            Content={content.component}
             activeTab={selectedTab}
+            actionCallback={(id)=>{
+              setSelectedTab(id)
+            }}
           />
         ))}
       </TabBodyWrapper>

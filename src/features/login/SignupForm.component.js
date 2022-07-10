@@ -14,14 +14,16 @@ import {
 import { useAxios } from "../../hooks";
 import { getSignupConfig } from "./api";
 
-export const SignupForm = () => {
+export const SignupForm = ({actionCallback}) => {
+  const[data, makeSignupRequest, loaded, error]= useAxios(getSignupConfig());
   const { values, handleChange, errors, handleSubmit } = useForm(() => {
-    makeRequest({ ...values, password2: values.password });
+    makeSignupRequest({ ...values, password2: values.password });
   }, validateSignup);
-  const { data, loading, error, makeRequest } = useAxios(getSignupConfig());
 
   useEffect(() => {
-    console.log("signup success", data);
+    if(data){
+      actionCallback("Log In");
+    }
   }, [data]);
 
   return (
@@ -35,6 +37,7 @@ export const SignupForm = () => {
           required
           onChange={handleChange}
           margin="1.2rem 3.2rem"
+          value={values.name || ''}
         />
         <FormField
           name="email"
@@ -43,6 +46,7 @@ export const SignupForm = () => {
           required
           onChange={handleChange}
           margin="1.2rem 3.2rem"
+          value={values.email || ''}
         />
         <FormField
           name="password"
@@ -52,6 +56,7 @@ export const SignupForm = () => {
           onChange={handleChange}
           eyeIcon={true}
           margin="1.2rem 3.2rem"
+          value={values.password || ''}
         />
         {displayError(errors, error)}
 
@@ -59,11 +64,13 @@ export const SignupForm = () => {
           type="submit"
           name={"Sign up"}
           margin="1rem 3.5rem 1rem 3.5rem"
-          loading={loading}
+          loading={loaded}
         />
-        <Row>
+
+        {/* TODO : Verify if we need a remember me checkbox here ???*/}
+        {/* <Row>
           <Checkbox name={"Remember Me"} onChange={handleChange} value="true" />
-        </Row>
+        </Row> */}
       </Form>
     </Stack>
   );

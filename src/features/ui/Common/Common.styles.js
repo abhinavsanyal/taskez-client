@@ -66,6 +66,8 @@ export const StyledCard = styled.div`
   border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : "5px")};
   width: 80%;
   max-width: 570px;
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : "")};
+  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "")};
   color: ${({ color }) => (color ? color : "black")};
   padding: ${({ padding }) => (padding ? padding : "4rem 4rem")};
   margin: ${({ margin }) => (margin ? margin : "0.8rem 5rem")};

@@ -12,6 +12,8 @@ export const Card = ({
   borderRadius,
   border,
   isDragging,
+  minHeight,
+  maxHeight,
 }) => {
   return (
     <StyledCard
@@ -22,6 +24,8 @@ export const Card = ({
       borderRadius={borderRadius}
       border={border}
       isDragging={isDragging}
+      minHeight={minHeight}
+      maxHeight={maxHeight}
     >
       {children}
     </StyledCard>

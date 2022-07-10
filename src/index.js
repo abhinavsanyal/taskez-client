@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Dashboard, Authentication } from "./pages";
 import { Kanban } from "./features";
 import { UnderConstruction } from "./features";
-import {AxiosInstanceProvider} from "./hooks"
+import { AxiosInstanceProvider } from "./hooks";
+import PrivateRoutes from "./hooks/ProtectedRoutes";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,12 +27,14 @@ root.render(
     <GlobalStyle />
     <Router>
       <Routes>
-        <Route path="/" element={<Authentication />} />
-        <Route  path="dashboard" element={<Dashboard />}>
-          <Route path="projects" element={<Kanban />} />
-          <Route path="*" element={<UnderConstruction  />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Dashboard />}>
+            <Route path="projects" element={<Kanban />} />
+            <Route path="*" element={<UnderConstruction />} />
+          </Route>
         </Route>
+        <Route path="/auth" element={<Authentication />} />
       </Routes>
     </Router>
-  </ AxiosInstanceProvider>
+  </AxiosInstanceProvider>
 );

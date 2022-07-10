@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Col, Row, Stack, Text } from "../ui";
 
 import { menus , menus_footer} from "./constants";
+import { useAxios } from "../../hooks";
 
 const NavMenu = ({ menu, handleClick, isActive }) => {
   return (
@@ -20,13 +21,19 @@ const NavMenu = ({ menu, handleClick, isActive }) => {
 
 export const Sidebar = () => {
   const [activeMenu, setActiveMenu] = React.useState("projects");
+  const[data, makeRequest, loaded, error, {  logoutUser }] = useAxios({});
   const navigate = useNavigate();
 
   const handleNavigation = (id) => {
-    navigate(`/dashboard/${id}`);
+    navigate(`/${id}`);
   };
 
   useEffect(() => {
+    if(activeMenu === "logout") {
+      logoutUser();
+      navigate("/auth");
+      return;
+    }
    handleNavigation(activeMenu);
   }, [activeMenu]);
 
