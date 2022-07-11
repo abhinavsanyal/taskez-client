@@ -3,6 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useAxios } from "../../../hooks";
 
 const useKanbanApi = () => {
+  // write logic for polling the api fetching the board data every 5 seconds
+  // and updating the board state with the new data
+  const [polling, setPolling] = useState(false);
+  const [pollingInterval, setPollingInterval] = useState(null);
+
   // API call to get all the kanban data
   const [kanbanData, fetchBoard, isBoardLoaded, isBoardError] = useAxios({
     url: "/lanes",
@@ -28,9 +33,23 @@ const useKanbanApi = () => {
     method: "GET",
   });
 
+  const startPolling = useCallback(() => {
+    setPolling(true);
+    setPollingInterval(
+      setInterval(() => {
+        fetchBoard();
+      }, 5000)
+    );
+  }, [fetchBoard]);
+
   useEffect(() => {
-    // get kanban board after any change in the board
-    fetchBoard();
+    // start polling the board data
+    startPolling();
+    // stop polling the board data when the component unmounts
+    return () => {
+      setPolling(false);
+      clearInterval(pollingInterval);
+    };
   }, [seedData, newCard, cardMoved, cardUpdated]);
 
   return {
@@ -261,8 +280,7 @@ export const useKanban = () => {
           };
         })
       );
-
-    }   else {
+    } else {
       setData(kanbanData);
     }
   }, [filterUsers, kanbanData]);
