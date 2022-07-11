@@ -67,7 +67,7 @@ const Board = memo(
                   <Droppable droppableId={lane._id}>
                     {(provided, snapshot) => (
                       <div
-                        style={{minHeight:"30rem",background:"yellow"}}
+                        style={{minHeight:"30rem"}}
                         key={lane._id}
                         ref={provided.innerRef}
                         {...provided.droppableProps}
