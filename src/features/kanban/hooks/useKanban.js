@@ -44,7 +44,9 @@ const useKanbanApi = () => {
 
   useEffect(() => {
     // start polling the board data
+    if(!polling) {
     startPolling();
+    }
     // stop polling the board data when the component unmounts
     return () => {
       setPolling(false);
