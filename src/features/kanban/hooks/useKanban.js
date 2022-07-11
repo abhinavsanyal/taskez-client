@@ -200,6 +200,11 @@ export const useKanban = () => {
   const updateCardTitle = useCallback(
     async (cardId, title) => {
       try {
+        // update the card title in local state data
+        const card = getCardDetails(cardId);
+        card.title = title;
+        setData([...data]);
+
         // update activeEditCard title
         setActiveEditCard((prevCard) => {
           if (prevCard._id === cardId) {
@@ -210,6 +215,7 @@ export const useKanban = () => {
           }
           return prevCard;
         });
+        // update the card title in the DB
         await updateCard({
           id: cardId,
           title,
@@ -226,6 +232,11 @@ export const useKanban = () => {
   const updateCardDescription = useCallback(
     async (cardId, description) => {
       try {
+        // update the card description in local state data
+        const card = getCardDetails(cardId);
+        card.description = description;
+        setData([...data]);
+
         // update activeEditCard description
         setActiveEditCard((prevCard) => {
           if (prevCard._id === cardId) {
@@ -236,7 +247,7 @@ export const useKanban = () => {
           }
           return prevCard;
         });
-
+        // update the card description in the DB
         await updateCard({
           id: cardId,
           title: getCardDetails(cardId).title,
