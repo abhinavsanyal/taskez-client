@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AxiosInstanceProvider config={{ baseURL: "http://localhost:3001/api/" }}>
+  <AxiosInstanceProvider config={{ baseURL: process.env.API_BASE_URL || "http://localhost:3001/api/" }}>
     <GlobalStyle />
     <Router>
       <Routes>
