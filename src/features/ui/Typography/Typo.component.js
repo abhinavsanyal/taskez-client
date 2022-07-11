@@ -7,6 +7,7 @@ export const HeadingText = ({
   fontWeight,
   color,
   margin,
+  ...rest
 }) => {
   return (
     <StyledText
@@ -15,6 +16,7 @@ export const HeadingText = ({
       lineHeight="101.1%"
       margin={margin}
       color={color ? color : "#212121"}
+      {...rest}
     >
       {children}
     </StyledText>
@@ -26,6 +28,7 @@ export const SubHeadingText = ({
   fontWeight,
   color,
   margin,
+  ...rest
 }) => {
   return (
     <StyledText
@@ -33,6 +36,7 @@ export const SubHeadingText = ({
       fontWeight={fontWeight}
       color={color}
       margin={margin}
+      {...rest}
     >
       {" "}
       {children}
@@ -45,6 +49,7 @@ export const TitleText = ({
   fontWeight,
   color,
   margin,
+  ...rest
 }) => {
   return (
     <StyledText
@@ -53,6 +58,7 @@ export const TitleText = ({
       lineHeight="101.1%"
       color={color ? color : "#212121"}
       margin={margin}
+      {...rest}
     >
       {" "}
       {children}{" "}
@@ -82,6 +88,7 @@ export const Text = ({
   fontWeight,
   color,
   margin = "0",
+  ...rest
 }) => {
   if (typeof children !== "string") {
     return <div>children</div>;
@@ -94,6 +101,7 @@ export const Text = ({
           fontWeight={fontWeight}
           color={color}
           margin={margin}
+          {...rest}
         >
           {" "}
           {children}
@@ -106,6 +114,7 @@ export const Text = ({
           fontWeight={fontWeight}
           color={color}
           margin={margin}
+          {...rest}
         >
           {children}{" "}
         </SubHeadingText>
@@ -117,6 +126,7 @@ export const Text = ({
           fontWeight={fontWeight}
           color={color}
           margin={margin}
+          {...rest}
         >
           {children}{" "}
         </TitleText>
@@ -130,6 +140,7 @@ export const Text = ({
           fontWeight={fontWeight}
           color={color}
           margin={margin}
+          {...rest}
         >
           {" "}
           {children}

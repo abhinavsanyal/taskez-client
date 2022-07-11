@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const StyledSearchDropownWrapper = styled.div`
+  position: absolute;
+  right: 15px;
+  border: 1px solid #ededed;
+  box-shadow: -4px 6px 17px rgb(216 216 216 / 59%);
+  border-radius: 8px;
+  z-index: 11;
+  background: #fff;
+  min-width: 18rem;
+`;
+
 export const StyledAvatar = styled.img`
   width: ${({ width }) => (width ? width : "10px")};
   height: ${({ height }) => (height ? height : "10px")};
@@ -12,7 +23,7 @@ export const StyledAvatars = styled.div`
   flex-direction: row;
   cursor: pointer;
   &:hover {
-    div{
+    div {
       margin-right: 3px;
     }
   }

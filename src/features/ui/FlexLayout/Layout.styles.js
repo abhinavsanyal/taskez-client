@@ -11,6 +11,7 @@ export const Stack = styled.div`
   justify-content: ${(props) => (props.justify ? props.justify : "flex-start")};
   align-items: ${(props) => (props.align ? props.align : "center")};
   background-color: ${(props) => (props.background ? props.background : "")};
+  z-index: inherit;
 `;
 // General Purpose Styled Flexbox Component, used as a fluid container.
 export const Row = styled.div`
@@ -33,6 +34,7 @@ export const Row = styled.div`
   border-bottom: ${(props) => (props.borderBottom ? props.borderBottom : "")};
   max-height: ${(props) => (props.maxHeight ? props.maxHeight : "none")};
   gap: ${(props) => (props.gap ? props.gap : "")};
+  z-index: inherit;
 `;
 
 // General Purpose Styled Flexbox Component, used as Column inside a Row.
@@ -52,4 +54,5 @@ export const Col = styled.div`
   border-right: ${(props) => (props.borderRight ? props.borderRight : "")};
   border-top: ${(props) => (props.borderTop ? props.borderTop : "")};
   border-bottom: ${(props) => (props.borderBottom ? props.borderBottom : "")};
+  z-index: inherit;
 `;

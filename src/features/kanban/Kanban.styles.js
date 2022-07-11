@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const StyledTags = styled.span`
+  padding: 5px;
+  backround: blue;
+`;
+
+export const StyledTag = styled.span`
+background: #ECF3F3;
+    margin: 0 5px;
+    border-radius: 7px;
+    padding: 2px;
+    font-size: 12px;
+`;
 
 export const StyledEditCard = styled.div`
 background: #fff;

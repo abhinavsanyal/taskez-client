@@ -99,7 +99,7 @@ export const Header = () => {
       </Col>
 
       <Col size={2}>
-        <User   name={currentUser? `Hi ${currentUser.name}` : ""} avatarUrl={currentUser ? currentUser.avatar : ""} />
+        <User   name={currentUser? `Hi ${currentUser.name.split(" ")[0]}` : ""} avatarUrl={currentUser ? currentUser.avatar : ""} />
       </Col>
     </Row>
   );

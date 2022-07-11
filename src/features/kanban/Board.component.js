@@ -33,7 +33,7 @@ const Board = memo(
                   borderRadius="15px"
                   padding="14px 20px"
                   minHeight="40rem"
-                  maxHeight="45rem"
+                  maxHeight="35rem"
                 >
                   <Row>
                     <Col size={3} justify={"flex-start"}>
@@ -62,6 +62,8 @@ const Board = memo(
                       onClickhandler={addNewCard}
                     />
                   </Row>
+                  <div style={{overflow:"scroll", maxHeight:"inherit"}}>
+
                   <Droppable droppableId={lane._id}>
                     {(provided, snapshot) => (
                       <div
@@ -92,6 +94,7 @@ const Board = memo(
                       </div>
                     )}
                   </Droppable>
+                  </div>
                 </Card>
               </Col>
             ))}

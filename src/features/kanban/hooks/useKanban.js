@@ -23,7 +23,10 @@ const useKanbanApi = () => {
 
   // API for seeding the database with 3 lanes ToDo, InProgress and Completed
   // ToDo : Move seed logic to backend, Once we have a addLane API integration.
-  const [seedData, seedDatabase] = useAxios({ url: "/lanes/seed", method: "GET" });
+  const [seedData, seedDatabase] = useAxios({
+    url: "/lanes/seed",
+    method: "GET",
+  });
 
   useEffect(() => {
     // get kanban board after any change in the board
@@ -36,27 +39,33 @@ const useKanbanApi = () => {
     createCard,
     changeCardPosition,
     updateCard,
-    seedDatabase
+    seedDatabase,
   };
 };
 
 // Custom hook that provides the state for the KanbanContext
-export const useKanban = ( ) => {
-  const { kanbanData, createCard, changeCardPosition, updateCard, seedDatabase } =
-    useKanbanApi();
+export const useKanban = () => {
+  const {
+    kanbanData,
+    createCard,
+    changeCardPosition,
+    updateCard,
+    seedDatabase,
+  } = useKanbanApi();
   const [data, setData] = useState(kanbanData);
   const [isEditing, setIsEditing] = useState(false);
   const [activeEditCard, setActiveEditCard] = useState(null);
+  const [filterUsers, setFilterUsers] = useState(false);
 
   const openCardEditor = (card) => {
     setIsEditing(true);
     setActiveEditCard(card);
-  }
+  };
 
   const closeCardEditor = () => {
     setIsEditing(false);
     setActiveEditCard(null);
-  }
+  };
 
   // A function to get the details of a card by its id
   const getCardDetails = useCallback(
@@ -87,8 +96,8 @@ export const useKanban = ( ) => {
           title: "",
           description: "",
         };
-        const card = await createCard({ laneId,  ...newCard });
-        if(card) {
+        const card = await createCard({ laneId, ...newCard });
+        if (card) {
           openCardEditor(card);
         }
       } catch (error) {
@@ -112,7 +121,7 @@ export const useKanban = ( ) => {
         ) {
           return;
         }
-        updateBoardLocally({destination, source, draggableId});
+        updateBoardLocally({ destination, source, draggableId });
         await changeCardPosition({
           destinationId: destination.droppableId,
           sourceId: source.droppableId,
@@ -127,14 +136,12 @@ export const useKanban = ( ) => {
     [data]
   );
 
-  //  Function that will update the card title and description in local state . 
+  //  Function that will update the card title and description in local state .
   // This is done to avoid UI latency while updating the card asynchronously with the API
   const updateBoardLocally = ({ destination, source, draggableId }) => {
     // If the card is moved to a different lane
     if (destination.droppableId !== source.droppableId) {
-      const sourceLane = data.find(
-        (lane) => lane._id === source.droppableId
-      );
+      const sourceLane = data.find((lane) => lane._id === source.droppableId);
       const targetLane = data.find(
         (lane) => lane._id === destination.droppableId
       );
@@ -143,12 +150,10 @@ export const useKanban = ( ) => {
         (card) => card._id !== draggableId
       );
       targetLane.cards.splice(destination.index, 0, card);
-      setData([ ...data ]);
+      setData([...data]);
     } else {
       // If the card is moved to a different index in the same lane
-      const lane = data.find(
-        (lane) => lane._id === destination.droppableId
-      );
+      const lane = data.find((lane) => lane._id === destination.droppableId);
       const newCards = [...lane.cards];
       newCards.splice(source.index, 1);
       newCards.splice(
@@ -183,7 +188,7 @@ export const useKanban = ( ) => {
             };
           }
           return prevCard;
-        } );
+        });
         await updateCard({
           id: cardId,
           title,
@@ -209,8 +214,7 @@ export const useKanban = ( ) => {
             };
           }
           return prevCard;
-        }
-        );
+        });
 
         await updateCard({
           id: cardId,
@@ -233,22 +237,42 @@ export const useKanban = ( ) => {
   );
 
   useEffect(() => {
-    if(kanbanData)  {
-      if( kanbanData.length === 0) {
+    if (kanbanData) {
+      if (kanbanData.length === 0) {
         seedDatabase(); // add three lanes : todo, inprogress, completed
-      } else{
+      } else {
         setData(kanbanData);
-      } 
+      }
     }
-
     // update the data in the state when kanbanData changes
-  } , [kanbanData]);
+  }, [kanbanData]);
 
-  const hook_exports =  useMemo(() => {
+  // useEffect to update the data in the state when the filterUsers changes
+  useEffect(() => {
+    if (filterUsers && filterUsers.length > 0) {
+      //filter all the cards in the lanes whose author id is in the filterUsers array that contains user objects
+      setData(
+        kanbanData.map((lane) => {
+          return {
+            ...lane,
+            cards: lane.cards.filter((card) => {
+              return filterUsers.find((user) => user._id === card.author._id);
+            }),
+          };
+        })
+      );
+
+    }   else {
+      setData(kanbanData);
+    }
+  }, [filterUsers, kanbanData]);
+
+  const hook_exports = useMemo(() => {
     return {
       data,
       isEditing,
       activeEditCard,
+      setFilterUsers,
       openCardEditor,
       closeCardEditor,
       getCardDetails,
@@ -258,7 +282,7 @@ export const useKanban = ( ) => {
       updateCardTitle,
       updateCardDescription,
       updateCardLabel,
-    }
+    };
   }, [data, isEditing, activeEditCard]);
 
   return hook_exports;

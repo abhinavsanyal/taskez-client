@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {  useRef } from "react";
 import { StyledEditCard } from "./Kanban.styles.js";
 import { Stack, FormField, Col, Text, User, TextArea } from "../ui";
 import { withKanbanContext } from "./contexts/kanban.context.js";
@@ -9,6 +9,7 @@ export const EditCard = withKanbanContext(
 
     const componentRef = useRef();
     useOutsideAlerter(componentRef, handleClose);
+
     return (
       <StyledEditCard ref={componentRef}>
         <Stack direction="row" margin="10px">
@@ -33,8 +34,8 @@ export const EditCard = withKanbanContext(
           </Col>
           <Col size={0.3} justify="flex-start">
             <User
-              name={activeEditCard.members[0].name}
-              avatarUrl={activeEditCard.members[0].avatar}
+              name={activeEditCard.author.name}
+              avatarUrl={activeEditCard.author.avatar}
               reverse
               iconSize={26}
               textType="description"

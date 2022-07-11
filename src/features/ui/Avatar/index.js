@@ -1,1 +1,1 @@
-export { Avatar, User, AvatarList } from "./Avatar.component";
+export { Avatar, User, AvatarList, UserSelectDropdown } from "./Avatar.component";
